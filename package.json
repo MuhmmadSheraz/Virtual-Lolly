@@ -18,12 +18,14 @@
     "apollo-server-lambda": "^2.19.2",
     "autoprefixer": "^10.2.4",
     "faunadb": "^4.0.3",
+    "formik": "^2.2.6",
     "gatsby": "^2.26.1",
     "gatsby-plugin-postcss": "^3.7.0",
     "postcss": "^8.2.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "shortid": "^2.2.16",
+    "sweetalert2": "^10.14.0",
     "tailwindcss": "^2.0.2"
   },
   "devDependencies": {
