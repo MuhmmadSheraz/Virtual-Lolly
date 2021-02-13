@@ -1,7 +1,6 @@
 const { ApolloServer, gql } = require("apollo-server-lambda")
 const faunadb = require("faunadb"),
   q = faunadb.query
-const shortid = require("shortid")
 const typeDefs = gql`
   type Query {
     getLollyCards: [lollyCard]
@@ -13,7 +12,7 @@ const typeDefs = gql`
     to: String!
     from: String!
     messageBody: String!
-    link: String!
+    Id: String!
   }
   type Mutation {
     createLollyCard(
@@ -23,6 +22,7 @@ const typeDefs = gql`
       to: String!
       from: String!
       messageBody: String!
+      Id: String!
     ): lollyCard
   }
 `
@@ -36,7 +36,7 @@ const resolvers = {
   Mutation: {
     createLollyCard: async (
       _,
-      { color1, color2, color3, to, messageBody, from }
+      { color1, color2, color3, to, messageBody, from, Id }
     ) => {
       try {
         var adminClient = new faunadb.Client({
@@ -50,7 +50,8 @@ const resolvers = {
           color3,
           to,
           messageBody,
-          from
+          from,
+          Id
         )
         const result = await adminClient.query(
           q.Create(q.Collection("lollyCards"), {
@@ -61,13 +62,13 @@ const resolvers = {
               to,
               messageBody,
               from,
-              link: shortid.generate(),
+              Id,
             },
           })
         )
         return result.data.data
       } catch (err) {
-        console.log("Mutation Catch Error===>", err)
+        console.log("Mutation Catch Error===>", err.message)
       }
     },
   },
@@ -76,6 +77,8 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
+  playground: true,
 })
 
 const handler = server.createHandler()

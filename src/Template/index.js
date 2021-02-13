@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 import CustomLolly from "../Components/CustomLolly"
-import { gql, useMutation, useQuery } from "@apollo/client"
-import { useFormik } from "formik"
-const ReceiveLolly = () => {
+const RecieveLolly = (props) => {
+  console.log("Template Props======:>",props)
   return (
     <div className="bg-gray-800 min-h-screen">
       {/* Heading */}
@@ -23,65 +22,23 @@ const ReceiveLolly = () => {
           />
         </div>
         {/* Right Part */}
-        <div className="flex flex-col border-2 border-pink-700 h-full p-5  sm:w-3/5 w-3/4 mx-5">
-          <div>
-            {/* Form Here */}
-            <form onSubmit={formik.handleSubmit}>
-              <label className="text-white" htmlFor="to">
-                To{" "}
-              </label>
-              <input
-                id="to"
-                name="to"
-                type="text"
-                className="my-2 p-4 w-full"
-                placeholder="To"
-                onChange={formik.handleChange}
-                value={formik.values.to}
-              />
-              {formik.errors.to ? (
-                <div className="text-red-600">{formik.errors.to}</div>
-              ) : null}
-              <label className="text-white" htmlFor="messageBody">
-                Your Message
-              </label>
-              <input
-                id="messageBody"
-                name="messageBody"
-                type="text"
-                className="my-2 p-4 w-full h-40"
-                placeholder="Your Message"
-                onChange={formik.handleChange}
-                value={formik.values.messageBody}
-              />
-              {formik.errors.messageBody ? (
-                <div className="text-red-600">{formik.errors.messageBody}</div>
-              ) : null}
-              <label className="text-white" htmlFor="from">
-                From
-              </label>
-              <input
-                id="from"
-                name="from"
-                type="from"
-                placeholder="From"
-                className="my-2 p-4 w-full "
-                onChange={formik.handleChange}
-                value={formik.values.from}
-              />
-              {formik.errors.from ? (
-                <div className="text-red-600">{formik.errors.from}</div>
-              ) : null}
-              <div className="mt-6">
-                <button
-                  // onClick={handleSubmit}
-                  type="submit"
-                  className="inline-block sm:px-6 px-2 bg-transparent hover:bg-pink-700 shadow-lg hover:text-white hover:border-white border-pink-700 focus:outline-none  border-2 sm:border-4 text-pink-700 md:text-lg py-2 text-sm sm:py-4 rounded-full"
-                >
-                  Freeze This Lolly To Get This a Link
-                </button>
-              </div>
-            </form>
+        <div className="flex flex-col h-full p-5  sm:w-3/5 w-full mx-5 items-center">
+          <div className="bg-pink-400 p-5 text-lg md:w-3/4 my-3">
+            <a
+              href="https://serverless-virlolly.netlify.app/lollies/6lEmlTivK "
+              target="blank"
+            >
+              https://serverless-virlolly.netlify.app/lollies/6lEmlTivK
+            </a>
+          </div>
+          {/* Content  */}
+          <div className="border-2 border-pink-700 sm:w-full m-0  sm:mx-0 sm:px-8 py-4 font-semibold text-white text-xl">
+            <div className="my-5">TO</div>
+            <div className="my-5">
+              lorem20jkhkjhcvkjd jksbfbajbkbkjbjkdbkdxja ckj djbajkd akdakj
+              kdkjakjf akjb{" "}
+            </div>
+            <div className="float-right mr-5">From</div>
           </div>
         </div>
       </div>
@@ -89,4 +46,4 @@ const ReceiveLolly = () => {
   )
 }
 
-export default CreateLolly
+export default RecieveLolly
