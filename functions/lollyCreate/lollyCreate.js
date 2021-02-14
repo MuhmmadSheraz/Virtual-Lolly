@@ -4,6 +4,7 @@ const faunadb = require("faunadb"),
 const typeDefs = gql`
   type Query {
     getLollyCards: [lollyCard]
+    getCustomLolly(Id: String!): lollyCard
   }
   type lollyCard {
     color1: String!
@@ -27,22 +28,56 @@ const typeDefs = gql`
   }
 `
 
+const adminClient = new faunadb.Client({
+  secret: "fnAEBfN2CrACCaU2iTWD2kpuU50zWoVpN6bP1zDl",
+})
 const resolvers = {
   Query: {
-    getLollyCards: (root, args, context) => {
-      return [{}]
+    getLollyCards: async (root, args, context) => {
+      const adminClient = new faunadb.Client({
+        secret: "fnAEBfN2CrACCaU2iTWD2kpuU50zWoVpN6bP1zDl",
+      })
+      var result = await adminClient.query(
+        q.Map(
+          q.Paginate(q.Documents(q.Collection("lollyCards"))),
+          q.Lambda(x => q.Get(x))
+        )
+      )
+
+      return result.data.map(item => {
+        return {
+          color1: item.data.color1,
+          color2: item.data.color2,
+          color3: item.data.color3,
+          to: item.data.to,
+          from: item.data.from,
+          messageBody: item.data.messageBody,
+          Id:item.data.Id,
+        }
+      })
+    },
+    getCustomLolly: async (_, { Id }) => {
+      console.log("Id =========>",Id)
+      try {
+        const adminClient = new faunadb.Client({
+          secret: "fnAEBfN2CrACCaU2iTWD2kpuU50zWoVpN6bP1zDl",
+        })
+        const result = await adminClient.query(
+          q.Get(q.Match(q.Index("customLolly"), Id))
+        )
+        return result.data
+      } catch (err) {
+        console.log(err.message)
+      }
     },
   },
+
   Mutation: {
     createLollyCard: async (
       _,
       { color1, color2, color3, to, messageBody, from, Id }
     ) => {
       try {
-        var adminClient = new faunadb.Client({
-          secret: "fnAEBfN2CrACCaU2iTWD2kpuU50zWoVpN6bP1zDl",
-        })
-
         console.log(
           "from Mutation====>",
           color1,
@@ -53,6 +88,10 @@ const resolvers = {
           from,
           Id
         )
+
+        const adminClient = new faunadb.Client({
+          secret: "fnAEBfN2CrACCaU2iTWD2kpuU50zWoVpN6bP1zDl",
+        })
         const result = await adminClient.query(
           q.Create(q.Collection("lollyCards"), {
             data: {

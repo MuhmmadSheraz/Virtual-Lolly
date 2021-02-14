@@ -5,33 +5,48 @@ import { useFormik } from "formik"
 import { navigate } from "gatsby"
 
 import shortId from "shortid"
+const CREATE_LOLLY_CARD_MUTATION = gql`
+  mutation createLollyCard(
+    $color1: String!
+    $color2: String!
+    $color3: String!
+    $to: String!
+    $from: String!
+    $messageBody: String!
+    $Id: String!
+  ) {
+    createLollyCard(
+      color1: $color1
+      color2: $color2
+      color3: $color3
+      to: $to
+      from: $from
+      messageBody: $messageBody
+      Id: $Id
+    ) {
+      Id
+    }
+  }
+`
+
+// Querry Section
+
+const Lollies_Querry = gql`
+  {
+    getLollyCards {
+      color1
+      color2
+      color3
+      to
+      from
+    }
+  }
+`
 const CreateLolly = () => {
+  const { loading, data, error } = useQuery(Lollies_Querry)
   const [color1, setColor1] = useState("#DFD70F")
   const [color2, setColor2] = useState("#D71588")
   const [color3, setColor3] = useState("#11A3D9")
-  const CREATE_LOLLY_CARD_MUTATION = gql`
-    mutation createLollyCard(
-      $color1: String!
-      $color2: String!
-      $color3: String!
-      $to: String!
-      $from: String!
-      $messageBody: String!
-      $Id: String!
-    ) {
-      createLollyCard(
-        color1: $color1
-        color2: $color2
-        color3: $color3
-        to: $to
-        from: $from
-        messageBody: $messageBody
-        Id: $Id
-      ) {
-        Id
-      }
-    }
-  `
 
   const [createLollyCard] = useMutation(CREATE_LOLLY_CARD_MUTATION)
 
@@ -68,24 +83,31 @@ const CreateLolly = () => {
         //     from: "",
         //   },
         // })
-        console.log(typeof Id)
-        // await createLollyCard({
-        //   variables: {
-        //     color1,
-        //     color2,
-        //     color3,
-        //     from: values.from,
-        //     to: values.to,
-        //     messageBody: values.messageBody,
-        //     Id: Id,
-        //   },
-        // })
-        await navigate(`/lolly/hello`)
+        console.log("PathId===>", Id)
+        await createLollyCard({
+          variables: {
+            color1,
+            color2,
+            color3,
+            from: values.from,
+            to: values.to,
+            messageBody: values.messageBody,
+            Id: Id,
+          },
+        })
+        setTimeout(() => navigate(`/lolly/${Id}`), 8000)
       } catch (err) {
         console.log(err.message)
       }
     },
   })
+  if (loading) {
+    return <h1>Loading</h1>
+  }
+  if (error) {
+    return <h1>{error.message}</h1>
+  }
+  console.log("Final Data ====>", data)
   return (
     <div className="bg-gray-800 min-h-screen">
       {/* Heading */}
