@@ -1,7 +1,6 @@
 const path = require(`path`)
 
 exports.createPages = async ({ page, actions, graphql }) => {
-  
   const { data } = await graphql(`
     query MyQuery {
       Lollies {
@@ -18,12 +17,12 @@ exports.createPages = async ({ page, actions, graphql }) => {
     }
   `)
   console.log("data===>", data.Lollies.getLollyCards)
-  data.Lollies.getLollyCards.forEach(
+  data.Lollies.getLollyCards.map(
     ({ Id, color1, color2, color3, messageBody, to, from }) => {
       console.log("Id ===>", Id)
       actions.createPage({
         path: `lolly/${Id}`,
-        component: path.resolve(`./src/Template/index.js`),
+        component: require.resolve(`./src/Template/index.js`),
         context: {
           Id: Id,
           color1: color1,
@@ -36,4 +35,13 @@ exports.createPages = async ({ page, actions, graphql }) => {
       })
     }
   )
+}
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions
+
+  if (page.path.match(/^\/lolly/)) {
+    page.matchPath = "/Lollies/*"
+
+    createPage(page)
+  }
 }

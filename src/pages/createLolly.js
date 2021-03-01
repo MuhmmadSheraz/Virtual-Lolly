@@ -95,7 +95,7 @@ const CreateLolly = () => {
             Id: Id,
           },
         })
-        setTimeout(() => navigate(`/lolly/${Id}`), 8000)
+        navigate(`/lolly/${Id}`)
       } catch (err) {
         console.log(err.message)
       }
