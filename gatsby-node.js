@@ -16,8 +16,7 @@ exports.createPages = async ({ page, actions, graphql }) => {
       }
     }
   `)
-  console.log("data===>", data.Lollies.getLollyCards)
-  data.Lollies.getLollyCards.map(
+  data?.Lollies?.getLollyCards?.map(
     ({ Id, color1, color2, color3, messageBody, to, from }) => {
       console.log("Id ===>", Id)
       actions.createPage({

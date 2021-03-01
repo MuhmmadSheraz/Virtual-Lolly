@@ -7,7 +7,7 @@ module.exports = {
       options: {
         typeName: "Lollies",
         fieldName: "Lollies",
-        url: "https://modest-babbage-4a7996.netlify.app//.netlify/functions/lollyCreate",
+        url: "http://localhost:8888/.netlify/functions/lollyCreate",
       },
     },
   ],
