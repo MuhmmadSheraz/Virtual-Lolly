@@ -1,4 +1,8 @@
-var baseUrl = "https://modest-babbage-4a7996.netlify.app"
+  
+var baseUrl =
+process.env.NODE_ENV === "development"
+  ? "http://localhost:8888"
+  : "https://virtual-lolly-shazy2000.netlify.app";
 
 module.exports = {
   /* Your site config here */
@@ -9,7 +13,7 @@ module.exports = {
       options: {
         typeName: "Lollies",
         fieldName: "Lollies",
-        url: `${baseUrl}/.netlify/functions/lollyCreate`,
+        url: `${baseUrl}.netlify/functions/lollyCreate`,
       },
     },
   ],
