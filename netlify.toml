@@ -1,4 +1,4 @@
 [build]
-    command ="yarn build && cd functions && yarn install"
+    command ="npm run build"
     publish ="public"
     functions="functions"
