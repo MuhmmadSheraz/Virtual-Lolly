@@ -13,7 +13,7 @@ module.exports = {
       options: {
         typeName: "Lollies",
         fieldName: "Lollies",
-        url: `${baseUrl}.netlify/functions/lollyCreate`,
+        url: `https://virtual-lolly-shazy2000.netlify.app/.netlify/functions/lollyCreate`,
       },
     },
   ],
