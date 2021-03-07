@@ -2,7 +2,7 @@
 var baseUrl =
 process.env.NODE_ENV === "development"
   ? "http://localhost:8888"
-  : "https://virtual-lolly-shazy2000.netlify.app";
+  : "https://adareyou654321.netlify.app";
 
 module.exports = {
   /* Your site config here */
