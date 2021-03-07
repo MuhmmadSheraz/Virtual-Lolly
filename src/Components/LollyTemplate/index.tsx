@@ -1,22 +1,22 @@
 import { useQuery, gql } from "@apollo/client"
 import React, { useState } from "react"
 import CustomLolly from "../CustomLolly/index"
-export const query = gql`
-  query getCustomLolly($Id: String) {
-    getCustomLolly(Id: $Id) {
-      color1
-      color2
-      color3
-      to
-      from
-      messageBody
-      Id
-    }
-  }
-`
+// export const query = gql`
+//   query getCustomLolly($Id: String) {
+//     getCustomLolly(Id: $Id) {
+//       color1
+//       color2
+//       color3
+//       to
+//       from
+//       messageBody
+//       Id
+//     }
+//   }
+// `
 
 const RecieveLolly = props => {
-  console.log("data== => Agaya===>", props.location)
+  console.log("props Template====>",props)
   const { getCustomLolly } = props.data
   return (
     <div className="bg-gray-800 min-h-screen">

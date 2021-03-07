@@ -23,7 +23,7 @@ exports.createPages = async ({ page, actions, graphql }) => {
         console.log("Id ===>", Id)
         actions.createPage({
           path: `lolly/${Id}`,
-          component: require.resolve(`./src/Template/index.js`),
+          component: require.resolve(`./src/Components/LollyTemplate`),
           context: {
             Id: Id,
             color1: color1,

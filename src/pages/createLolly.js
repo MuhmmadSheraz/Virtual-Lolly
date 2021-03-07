@@ -98,7 +98,7 @@ const CreateLolly = () => {
       }).then(e => {
         console.log(e.data.createLollyCard)
         navigate(`/viewLolly?id=${e.data.createLollyCard.Id}`)
-        // ShowNewLolly(e.data.createLollyCard)
+        ShowNewLolly(e.data.createLollyCard)
       })
     },
   })
