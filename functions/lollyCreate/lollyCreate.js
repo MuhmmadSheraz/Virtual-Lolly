@@ -4,7 +4,7 @@ const faunadb = require("faunadb"),
 const typeDefs = gql`
   type Query {
     getLollyCards: [lollyCard]
-    getCustomLolly(Id: String!): lollyCard
+    getCustomLolly(Id: String): lollyCard
   }
   type lollyCard {
     color1: String!
@@ -52,12 +52,12 @@ const resolvers = {
           to: item.data.to,
           from: item.data.from,
           messageBody: item.data.messageBody,
-          Id:item.data.Id,
+          Id: item.data.Id,
         }
       })
     },
     getCustomLolly: async (_, { Id }) => {
-      console.log("Id =========>",Id)
+      console.log("Id =========>", Id)
       try {
         const adminClient = new faunadb.Client({
           secret: "fnAEBfN2CrACCaU2iTWD2kpuU50zWoVpN6bP1zDl",
@@ -65,6 +65,7 @@ const resolvers = {
         const result = await adminClient.query(
           q.Get(q.Match(q.Index("customLolly"), Id))
         )
+        console.log("result.data.data===>", result.data)
         return result.data
       } catch (err) {
         console.log(err.message)
@@ -105,7 +106,8 @@ const resolvers = {
             },
           })
         )
-        return result.data.data
+        console.log("result.data===>", result.data)
+        return result.data
       } catch (err) {
         console.log("Mutation Catch Error===>", err.message)
       }

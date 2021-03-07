@@ -24,6 +24,12 @@ const CREATE_LOLLY_CARD_MUTATION = gql`
       messageBody: $messageBody
       Id: $Id
     ) {
+      color1
+      color2
+      color3
+      to
+      from
+      messageBody
       Id
     }
   }
@@ -42,6 +48,9 @@ const Lollies_Querry = gql`
     }
   }
 `
+const ShowNewLolly = props => {
+  return console.log(props)
+}
 const CreateLolly = () => {
   const { loading, data, error } = useQuery(Lollies_Querry)
   const [color1, setColor1] = useState("#DFD70F")
@@ -72,33 +81,25 @@ const CreateLolly = () => {
       from: "ffff",
     },
     validate: Validation,
-    onSubmit: async (values, actions) => {
-      try {
-        let Id = shortId.generate()
-        // alert(JSON.stringify(values, null, 2))
-        // actions.resetForm({
-        //   values: {
-        //     to: "",
-        //     messageBody: "",
-        //     from: "",
-        //   },
-        // })
-        console.log("PathId===>", Id)
-        await createLollyCard({
-          variables: {
-            color1,
-            color2,
-            color3,
-            from: values.from,
-            to: values.to,
-            messageBody: values.messageBody,
-            Id: Id,
-          },
-        })
-        navigate(`/lolly/${Id}`)
-      } catch (err) {
-        console.log(err.message)
-      }
+    onSubmit: (values, actions) => {
+      let Id = shortId.generate()
+
+      console.log("PathId===>", Id)
+      createLollyCard({
+        variables: {
+          color1,
+          color2,
+          color3,
+          from: values.from,
+          to: values.to,
+          messageBody: values.messageBody,
+          Id: Id,
+        },
+      }).then(e => {
+        console.log(e.data.createLollyCard)
+        navigate(`/viewLolly?id=${e.data.createLollyCard.Id}`)
+        // ShowNewLolly(e.data.createLollyCard)
+      })
     },
   })
   if (loading) {
