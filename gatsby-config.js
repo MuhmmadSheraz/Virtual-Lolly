@@ -1,3 +1,5 @@
+var baseUrl = "https://modest-babbage-4a7996.netlify.app"
+
 module.exports = {
   /* Your site config here */
   plugins: [
@@ -7,7 +9,7 @@ module.exports = {
       options: {
         typeName: "Lollies",
         fieldName: "Lollies",
-        url: "http://localhost:8888/.netlify/functions/lollyCreate",
+        url: `${baseUrl}/.netlify/functions/lollyCreate`,
       },
     },
   ],
