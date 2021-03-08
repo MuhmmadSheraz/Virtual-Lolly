@@ -16,7 +16,7 @@ import CustomLolly from "../CustomLolly/index"
 // `
 
 const RecieveLolly = props => {
-  console.log("props Template====>",props)
+  console.log("props Template====>", props)
   const { getCustomLolly } = props.data
   return (
     <div className="bg-gray-800 min-h-screen">
@@ -41,10 +41,11 @@ const RecieveLolly = props => {
         <div className="flex flex-col h-full p-5  sm:w-3/5 w-full mx-5 items-center">
           <div className="bg-pink-400 p-5 text-lg md:w-3/4 my-3">
             <a
-              href={`http://localhost:8888/viewLolly?id=${getCustomLolly.Id}`}
+              href={`https://shazy-virtual-lolly.netlify.app/viewLolly?id=${getCustomLolly.Id}`}
               target="blank"
             >
-              http://localhost:8000/lolly/{getCustomLolly.Id}
+              https://shazy-virtual-lolly.netlify.app/viewLolly?id=$
+              {getCustomLolly.Id}
             </a>
           </div>
           {/* Content  */}
